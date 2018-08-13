@@ -40,7 +40,7 @@ bool kXAudioEngine::init(kx_hw *hw_)
     
     dump_addr();
     
-    debug("kXAudioEngine[%p]::init, new istance created\n", this);
+    debug("kXAudioEngine[%p]::init, new instance created\n", this);
     
     hw = hw_;
     
@@ -147,7 +147,7 @@ bool kXAudioEngine::initHardware(IOService *provider)
     
     if(n_channels == 0){
         n_channels = 8;
-        debug("kXAudioEngine[%p]::init hardware: more chennels needed", this);
+        debug("kXAudioEngine[%p]::initHardware: more chennels needed", this);
     }
     // calculate kx_sample_offset
     
@@ -166,6 +166,33 @@ bool kXAudioEngine::initHardware(IOService *provider)
         setInputSampleLatency(32+1);
         setOutputSampleLatency(32 +1);
         setOutputSampleOffset(32+1);
+    }
+    
+    if (hw->useCustomMapping){
+        
+        for (int i= (MAPPING_NUM_CHANNELS - 1); i>=0; i--){
+            mapping[i] = ((int) hw->customMapping[i]);
+            
+            if ((mapping[i] < 2) || (mapping[i] > 9)){
+                
+                debug("kXAudioEngine[%p]::initHardware: !!! remapping channel [%d] using illegal value [%d] !!!\n",this,i, mapping[i]);
+                
+                //goto Done;
+            }
+            
+            //copyMapping /= 10;
+            
+            debug("kXAudioEngine[%p]::initHardware: remapping channel [%d] using custom mapping [%d]\n",this,i, mapping[i]);
+        }
+        
+        /*
+         int counter=7;
+         while(copyMapping > 0){
+         mapping[counter] = copyMapping % 10;
+         copyMapping = copyMapping/10;
+         counter--; // doing it backwards to populate the array properly. hax!
+         }
+         */
     }
     
     //outputStreams->initWithCapacity(MAX_CHANNELS_);
@@ -221,8 +248,8 @@ bool kXAudioEngine::initHardware(IOService *provider)
     // Set the number of sample frames in each buffer
     setNumSampleFramesPerBuffer(n_frames);
     
-    debug("kXAudioEngine[%p]::init hardware completed\n",this);
-    debug("kXAudioEngine[%p]::init hardware: total audio streams created: %p",this, this);
+    debug("kXAudioEngine[%p]::initHardware completed\n",this);
+    debug("kXAudioEngine[%p]::initHardware: total audio streams created: %p\n",this, this);
     
     if (hw->nameDebug){
         debug("kXAudioEngine[%p]::post initialization info:\n", this);
@@ -477,14 +504,11 @@ IOAudioStream *kXAudioEngine::createNewAudioStream(int chn,IOAudioStreamDirectio
                 if(chn==0) // first voice?
                     need_notifier|=VOICE_OPEN_NOTIFY; // half/full buffer
                 
-                int mapping[]=
-                { //2,3,4,5,6,7,8,9 - kX:  front, rear, center+lfe, back
-                    //1,2,3,4,5,6,7,8 - OSX: front, center+lfe, rear, back
-                    2,3,6,7,4,5,8,9 };
-                // wave 2/3 - front
-                // wave 6/7 - center+lfe
-                // wave 4/5 - rear
-                // 8/9 - rear center/etc.
+                for (int i= (MAPPING_NUM_CHANNELS - 1); i>=0; i--){
+                    debug("kXAudioEngine[%p]::initHardware: remapping channel [%d] using custom mapping [%d]\n",this,i, mapping[i]);
+                }
+                
+                debug("kXAudioEngine[%p]::initHardware: custom mapping value [%s]\n",this, hw->customMapping);
                 
                 int i=kx_allocate_multichannel(hw,bps,sampling_rate,need_notifier,&buffer,DEF_ASIO_ROUTING+mapping[chn]); // start with 2/3
                 
@@ -547,11 +571,11 @@ IOAudioStream *kXAudioEngine::createNewAudioStream(int chn,IOAudioStreamDirectio
             //rate.whole = sampling_rate;
             //audioStream->addAvailableFormat(&format, &rate, &rate);
             
-#define N_FREQUNCYES 18
+#define N_FREQUNCYES 19
             
             //frequencyes higher than 48khz must be added at the beginning of the array and then the N_FREQUENCYES macro must be changed to make the new size of the array to be working, also the order is not important for mac since it does reorder the sample rates for us
             if (!hw->disableFixes){
-                int supportedRates[N_FREQUNCYES] = { 64000, 88200, 96000, 176400, 192000, 8000, 9600, 11025, 12000, 16000, 18900, 22050, 24000, 32000, 37800, 44056, 44100, 48000};
+                int supportedRates[N_FREQUNCYES] = { 64000, 88200, 96000, 176400, 192000, 7000, 8000, 9600, 11025, 12000, 16000, 18900, 22050, 24000, 32000, 37800, 44056, 44100, 48000};
                 
                 if (!hw->testImputs){
                     supportedRates[4] = 0;

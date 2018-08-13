@@ -25,6 +25,8 @@
 
 #define MAX_CHANNELS_	16
 
+#define MAPPING_NUM_CHANNELS 8
+
 #ifndef KX_INTERNAL
 #error invalid configuration
 #endif
@@ -56,6 +58,18 @@ public:
     const float kOneOverMaxSInt32Value = 1.0/2147483648.0f;
     
     bool vectorize;
+    
+    int mapping[MAPPING_NUM_CHANNELS] =
+    {
+        //2,3,4,5,6,7,8,9 - kX:  front, rear, center+lfe, back
+        //1,2,3,4,5,6,7,8 - OSX: front, center+lfe, rear, back
+        2,3,6,7,4,5,8,9
+    };
+    
+    // wave 2/3 - front
+    // wave 6/7 - center+lfe
+    // wave 4/5 - rear
+    // 8/9 - rear center/etc.
     
     
     //kx_voice_buffer *in_buffers_[MAX_CHANNELS_];

@@ -436,6 +436,7 @@ struct kx_hw
     char kx_driver[KX_MAX_STRING];
     char kx_date[KX_MAX_STRING];
     
+    
     bool nameDebug = false;
     bool showBusInName = false;
     bool testImputs = false;
@@ -443,7 +444,13 @@ struct kx_hw
     bool enableOriginalDebugging = false;
     bool disableFixes = false;
     
-    int defaultSampleRate = 44100;
+    #if defined(__APPLE__) && defined(__MACH__)
+        int defaultSampleRate = 44100;
+    
+        bool useCustomMapping = false;
+    
+        char customMapping[8];
+    #endif
     
     // PCI info
     byte pci_bus;   // used only by spy.exe:

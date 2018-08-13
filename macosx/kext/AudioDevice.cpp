@@ -298,6 +298,15 @@ bool kXAudioDevice::initHardware(IOService *provider)
         
     }
     
+    if (PE_parse_boot_argn("-kx_custom_layout", hw->customMapping, sizeof(hw->customMapping)) || PE_parse_boot_argn("-kxcuslay", hw->customMapping, sizeof(hw->customMapping))){
+        
+        hw->useCustomMapping = true;
+        arg++;
+        debug(DBGCLASS"[%p]::initHardware: custom output layout enabled with -kx_custom_layout or -kxcuslay\n",this);
+    }else{
+        hw->useCustomMapping = false;
+    }
+    
     
     
     if (arg == 0){
