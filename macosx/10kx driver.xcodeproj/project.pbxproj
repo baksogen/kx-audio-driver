@@ -2354,6 +2354,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = 089C166AFE841209C02AAC07 /* SampleAudioDriver */;
@@ -2582,6 +2583,7 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 2.10b0;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_CPP_EXCEPTIONS = NO;
 				GCC_ENABLE_CPP_RTTI = NO;
@@ -2597,7 +2599,7 @@
 				MODULE_IOKIT = YES;
 				MODULE_NAME = com.kXProject.driver.kXAudioDriver;
 				PRODUCT_NAME = kXAudioDriver;
-				VALID_ARCHS = "x86_64 i386";
+				VALID_ARCHS = x86_64;
 				WRAPPER_EXTENSION = kext;
 			};
 			name = Deployment;
@@ -2631,7 +2633,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD)";
 				GCC_PREPROCESSOR_DEFINITIONS = "$(GCC_PREPROCESSOR_DEFINITIONS_QUOTED_1)";
 				GCC_PREPROCESSOR_DEFINITIONS_QUOTED_1 = "'DRIVER_VERSION=\"${MODULE_VERSION}\"'";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -2651,7 +2653,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_PREPROCESS = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
-				MODULE_VERSION = 2.00b0;
+				MODULE_VERSION = 2.10b0;
 				SDKROOT = macosx;
 				USER_HEADER_SEARCH_PATHS = ../h;
 				ZERO_LINK = NO;

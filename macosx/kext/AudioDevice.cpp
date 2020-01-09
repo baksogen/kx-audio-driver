@@ -155,7 +155,7 @@ bool kXAudioDevice::initHardware(IOService *provider)
     pciDevice->setIOEnable(true);
     pciDevice->setBusMasterEnable(true);
     
-    setManufacturerName("Eugene Gavrilov, kX Project, Mod by ITzTravelInTime");
+    setManufacturerName("Eugene Gavrilov, kX Project, Mod by ITzTravelInTime ( BiOM Edition ) ");
     setDeviceTransportType(kIOAudioDeviceTransportTypePCI);
     
     kx_callbacks cb;

@@ -15,7 +15,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>${MODULE_VERSION}</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>IOKitPersonalities</key>
 	<dict>
 		<key>kXAudioDriver</key>
@@ -24,16 +24,20 @@
 			<string>com.kXProject.driver.kXAudioDriver</string>
 			<key>IOClass</key>
 			<string>com_kXProject_driver_kXAudioDriver</string>
-			<key>IOUserClientClass</key>
-			<string>com_kXProject_driver_kXUserClient</string>
 			<key>IOPCIMatch</key>
 			<string>0x00021102 0x00041102 0x00081102</string>
 			<key>IOProviderClass</key>
 			<string>IOPCIDevice</string>
+			<key>IOUserClientClass</key>
+			<string>com_kXProject_driver_kXUserClient</string>
 		</dict>
 	</dict>
 	<key>OSBundleLibraries</key>
 	<dict>
+		<key>com.apple.iokit.IOAudioFamily</key>
+		<string>1.5</string>
+		<key>com.apple.iokit.IOPCIFamily</key>
+		<string>1.0.0b1</string>
 		<key>com.apple.kpi.bsd</key>
 		<string>8.0</string>
 		<key>com.apple.kpi.iokit</key>
@@ -42,10 +46,6 @@
 		<string>8.0</string>
 		<key>com.apple.kpi.mach</key>
 		<string>8.0</string>
-		<key>com.apple.iokit.IOAudioFamily</key>
-		<string>1.5</string>
-		<key>com.apple.iokit.IOPCIFamily</key>
-		<string>1.0.0b1</string>
 	</dict>
 </dict>
 </plist>
