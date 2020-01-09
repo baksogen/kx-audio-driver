@@ -25,9 +25,9 @@
 #else
  #define KX_VERSION_STR            "5, 30, 00, 0"
 #endif
-#define KX_COPYRIGHT_STR        "Copyright © Eugene Gavrilov, 2001-2018. All rights reserved. Mod By Alejandro, ITzTravelInTime"
+#define KX_COPYRIGHT_STR        "Copyright © Eugene Gavrilov, 2001-2018. All rights reserved. Mod By Alejandro, ITzTravelInTime, BiOM"
 
-#define KX_COPYRIGHT_STR_R        "Copyright © Eugene Gavrilov, 2001-2018. Mod By Alejandro, ITzTravelInTime"
+#define KX_COPYRIGHT_STR_R        "Copyright © Eugene Gavrilov, 2001-2018. Mod By Alejandro, ITzTravelInTime, BiOM"
 #define KX_COPYRIGHT_YEARS        "2001-2020"
 
 #define KX_COMPANY_NAME            "Eugene Gavrilov, Mod By Alejandro, ITzTravelInTim, BiOM"
