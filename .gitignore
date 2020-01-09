@@ -6,3 +6,5 @@
 *.xcscheme
 
 macosx/10kx driver.xcodeproj/xcuserdata/egavrilov.xcuserdatad/xcschemes/xcschememanagement.plist
+xcschememanagement.plist
+IDEWorkspaceChecks.plist
