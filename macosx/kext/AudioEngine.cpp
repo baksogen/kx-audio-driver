@@ -567,7 +567,7 @@ IOAudioStream *kXAudioEngine::createNewAudioStream(int chn,IOAudioStreamDirectio
                 audioStream->setSampleBuffer(sampleBuffer, sampleBufferSize);
             
             if (hw->is_10k2){
-                depth = 24;
+                depth = 32;
                 width = 32;
             }else{
                 depth = 16;
@@ -784,15 +784,19 @@ IOReturn kXAudioEngine::performFormatChange(IOAudioStream *audioStream, const IO
     if (newSampleRate)
     {
         if(!hw->is_edsp){
-            
-            for(int i=0; i<n_channels;i++)
-            {
-                hw->voicetable[i].param.initial_pitch =  (word) kx_srToPitch(kx_sr_coeff(hw,newSampleRate->whole) >> 8);
-                hw->voicetable[i].param.pitch_target  =         kx_samplerate_to_linearpitch(kx_sr_coeff(hw,newSampleRate->whole));
-                hw->voicetable[i].sampling_rate       =         newSampleRate->whole;
+            if(newSampleRate->whole == 192000){
+                for(int i=0; i<n_channels;i++)
+                {
+                    hw->voicetable[i].param.pitch_target  = 0xffff;
+                }
+            } else {
+                for(int i=0; i<n_channels;i++)
+                {
+                    hw->voicetable[i].param.initial_pitch =  (word) kx_srToPitch(kx_sr_coeff(hw,newSampleRate->whole) >> 8);
+                    hw->voicetable[i].param.pitch_target  =         kx_samplerate_to_linearpitch(kx_sr_coeff(hw,newSampleRate->whole));
+                    hw->voicetable[i].sampling_rate       =         newSampleRate->whole;
+                }
             }
-            
-            
         }else{
             switch (newSampleRate->whole) {
                 case 44100:
