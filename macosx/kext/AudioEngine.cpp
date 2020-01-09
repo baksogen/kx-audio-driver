@@ -70,7 +70,7 @@ bool kXAudioEngine::init(kx_hw *hw_)
     
     result = true;
     
-    sampling_rate=48000;
+    sampling_rate=44100;
     
     if (PE_parse_boot_argn("_kxcl", customMapping, KXBootArgValueLength)) {
         debug(DBGCLASS"[%p]::init: custom output layout enabled with -kx_custom_layout or -kxcuslay \n",this);
@@ -162,7 +162,7 @@ bool kXAudioEngine::init(kx_hw *hw_)
     // Mavericks (related to Timer Coalescing?) causing playback crackle
     // until streams are restart (e.g. stop/start playback)
     //    n_frames = (int)(4 * (hw->mtr_buffer.size * 8 / bps / n_channels));
-    n_frames = (int)(hw->mtr_buffer.size * 8 / bps / n_channels);
+    n_frames = (int)(4 * (hw->mtr_buffer.size * 8 / bps / n_channels));
     
     debug("kXAudioEngine[%p]::init - n_frames=%d\n", this, n_frames);
     
